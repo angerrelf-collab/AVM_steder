@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afleveringssteder</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+    padding:15px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.controls{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+input, textarea, select, button{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    background:#1976d2;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#135ba1;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3{
+    color:#1976d2;
+    margin-bottom:5px;
+}
+
+.kontor{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.tags{
+    margin:10px 0;
+}
+
+.tag{
+    display:inline-block;
+    background:#e3f2fd;
+    color:#0d47a1;
+    padding:4px 8px;
+    border-radius:12px;
+    margin:2px;
+    font-size:12px;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.actions button{
+    flex:1;
+}
+
+.formBox{
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.hidden{
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<h1>📦 Afleveringssteder</h1>
+
+<div class="controls">
+
+<input type="text" id="search" placeholder="🔍 Søg navn, kontor eller tags">
+
+<select id="sort">
+    <option value="navn">Sortér efter navn</option>
+    <option value="kontor">Sortér efter kontor</option>
+</select>
+
+<button onclick="toggleForm()">➕ Nyt afleveringssted</button>
+
+<button onclick="exportJSON()">📥 Eksportér JSON</button>
+
+<input type="file" id="importFile" accept=".json">
+
+</div>
+
+<div class="formBox hidden" id="formBox">
+
+<input type="hidden" id="editIndex">
+
+<input id="navn" placeholder="Navn">
+
+<input id="kontor" placeholder="Kontornummer (fx R0.02)">
+
+<input id="tags" placeholder="Tags (kommasepareret)">
+
+<textarea id="beskrivelse" rows="4"
+placeholder="Beskrivelse af hvordan man finder stedet"></textarea>
+
+<button onclick="savePlace()">💾 Gem</button>
+
+</div>
+
+<div id="list"></div>
+
+<script>
+
+let steder = JSON.parse(localStorage.getItem("steder")) || [
+
+{
+    navn:"Sekretariat",
+    kontor:"R0.02",
+    tags:["Administration","Post"],
+    beskrivelse:"Gå ind ad hovedindgangen og drej til venstre."
+},
+
+{
+    navn:"HR",
+    kontor:"R1.14",
+    tags:["Personale"],
+    beskrivelse:"Tag elevatoren til 1. sal."
+}
+
+];
+
+const list = document.getElementById("list");
+
+function saveData(){
+    localStorage.setItem("steder", JSON.stringify(steder));
+}
+
+function render(){
+
+    let filtered = [...steder];
+
+    const search =
+    document.getElementById("search").value.toLowerCase();
+
+    filtered = filtered.filter(sted =>
+        sted.navn.toLowerCase().includes(search) ||
+        sted.kontor.toLowerCase().includes(search) ||
+        sted.tags.join(" ").toLowerCase().includes(search) ||
+        sted.beskrivelse.toLowerCase().includes(search)
+    );
+
+    const sort =
+    document.getElementById("sort").value;
+
+    filtered.sort((a,b)=>{
+        return a[sort].localeCompare(
+            b[sort],
+            'da',
+            {numeric:true}
+        );
+    });
+
+    list.innerHTML="";
+
+    filtered.forEach(sted=>{
+
+        const realIndex =
+        steder.indexOf(sted);
+
+        const tagsHTML =
+        sted.tags.map(tag=>
+            `<span class="tag">${tag}</span>`
+        ).join("");
+
+        list.innerHTML += `
+        <div class="card">
+
+            <h3>${sted.navn}</h3>
+
+            <div class="kontor">
+                ${sted.kontor}
+            </div>
+
+            <div class="tags">
+                ${tagsHTML}
+            </div>
+
+            <p>${sted.beskrivelse}</p>
+
+            <div class="actions">
+                <button onclick="editPlace(${realIndex})">
+                    ✏️ Rediger
+                </button>
+
+                <button onclick="deletePlace(${realIndex})">
+                    🗑️ Slet
+                </button>
+            </div>
+
+        </div>
+        `;
+    });
+
+}
+
+function toggleForm(){
+    document
+        .getElementById("formBox")
+        .classList.toggle("hidden");
+}
+
+function savePlace(){
+
+    const navn =
+    document.getElementById("navn").value.trim();
+
+    const kontor =
+    document.getElementById("kontor").value.trim();
+
+    const tags =
+    document.getElementById("tags").value
+    .split(",")
+    .map(t=>t.trim())
+    .filter(Boolean);
+
+    const beskrivelse =
+    document.getElementById("beskrivelse").value.trim();
+
+    const editIndex =
+    document.getElementById("editIndex").value;
+
+    if(!navn || !kontor){
+        alert("Navn og kontornummer skal udfyldes");
+        return;
+    }
+
+    const data = {
+        navn,
+        kontor,
+        tags,
+        beskrivelse
+    };
+
+    if(editIndex === ""){
+        steder.push(data);
+    } else {
+        steder[editIndex] = data;
+    }
+
+    clearForm();
+    saveData();
+    render();
+}
+
+function editPlace(index){
+
+    const sted = steder[index];
+
+    document.getElementById("editIndex").value = index;
+    document.getElementById("navn").value = sted.navn;
+    document.getElementById("kontor").value = sted.kontor;
+    document.getElementById("tags").value = sted.tags.join(", ");
+    document.getElementById("beskrivelse").value = sted.beskrivelse;
+
+    document.getElementById("formBox")
+        .classList.remove("hidden");
+}
+
+function deletePlace(index){
+
+    if(confirm("Slet dette afleveringssted?")){
+
+        steder.splice(index,1);
+
+        saveData();
+        render();
+    }
+}
+
+function clearForm(){
+
+    document.getElementById("editIndex").value="";
+    document.getElementById("navn").value="";
+    document.getElementById("kontor").value="";
+    document.getElementById("tags").value="";
+    document.getElementById("beskrivelse").value="";
+}
+
+function exportJSON(){
+
+    const data =
+    JSON.stringify(steder,null,2);
+
+    const blob =
+    new Blob([data],
+    {type:"application/json"});
+
+    const a =
+    document.createElement("a");
+
+    a.href =
+    URL.createObjectURL(blob);
+
+    a.download =
+    "afleveringssteder.json";
+
+    a.click();
+}
+
+document
+.getElementById("importFile")
+.addEventListener("change",function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+        steder = JSON.parse(reader.result);
+
+        saveData();
+
+        render();
+    };
+
+    reader.readAsText(file);
+});
+
+document
+.getElementById("search")
+.addEventListener("input",render);
+
+document
+.getElementById("sort")
+.addEventListener("change",render);
+
+render();
+
+</script>
+
+</body>
+</html>

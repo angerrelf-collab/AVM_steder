@@ -81,6 +81,48 @@ button:hover{
     font-size:12px;
 }
 
+.tag-filter-panel{
+    background:white;
+    padding:10px;
+    border-radius:8px;
+}
+
+.tag-filter-panel summary{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.tag-filter-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    margin:10px 0;
+}
+
+.tag-button{
+    width:auto;
+    padding:4px 8px;
+    border:0;
+    border-radius:12px;
+    margin:2px;
+    background:#e3f2fd;
+    color:#0d47a1;
+    font-size:12px;
+}
+
+.tag-button:hover{
+    background:#bbdefb;
+}
+
+.tag-button[aria-pressed="true"]{
+    background:#1976d2;
+    color:white;
+}
+
+.tag-filter-clear{
+    width:auto;
+}
+
 .actions{
     display:flex;
     gap:8px;
@@ -110,6 +152,12 @@ button:hover{
 <div class="controls">
 
 <input type="text" id="search" placeholder="🔍 Søg navn, kontor eller tags">
+
+<details class="tag-filter-panel">
+    <summary>Filtrér på tags <span id="activeTagCount"></span></summary>
+    <div class="tag-filter-options" id="tagFilters"></div>
+    <button type="button" class="tag-filter-clear" id="clearTagFilters">Ryd tagfiltre</button>
+</details>
 
 <select id="sort">
     <option value="navn">Sortér efter navn</option>
@@ -234,6 +282,48 @@ let steder = JSON.parse(localStorage.getItem("steder")) || [
 ];
 
 const list = document.getElementById("list");
+const tagFilters = document.getElementById("tagFilters");
+const selectedTags = new Set();
+
+function escapeHTML(value){
+    return String(value).replace(/[&<>"']/g, character => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[character]);
+}
+
+function renderTagFilters(){
+    const allTags = [...new Set(steder.flatMap(sted => sted.tags))].sort(
+        (a,b) => a.localeCompare(b, "da")
+    );
+
+    tagFilters.innerHTML = allTags.map(tag => `
+        <button type="button" class="tag-button" data-tag="${escapeHTML(tag)}"
+            aria-pressed="${selectedTags.has(tag)}">${escapeHTML(tag)}</button>
+    `).join("");
+
+    document.getElementById("activeTagCount").textContent =
+        selectedTags.size ? `(${selectedTags.size} valgt)` : "";
+    document.getElementById("clearTagFilters").disabled =
+        selectedTags.size === 0;
+}
+
+function toggleTagFilter(tag, openPanel = false){
+    if(selectedTags.has(tag)){
+        selectedTags.delete(tag);
+    } else {
+        selectedTags.add(tag);
+    }
+
+    if(openPanel){
+        document.querySelector(".tag-filter-panel").open = true;
+    }
+
+    render();
+}
 
 function saveData(){
     localStorage.setItem("steder", JSON.stringify(steder));
@@ -246,11 +336,16 @@ function render(){
     const search =
     document.getElementById("search").value.toLowerCase();
 
+    renderTagFilters();
+
     filtered = filtered.filter(sted =>
-        sted.navn.toLowerCase().includes(search) ||
-        sted.kontor.toLowerCase().includes(search) ||
-        sted.tags.join(" ").toLowerCase().includes(search) ||
-        sted.beskrivelse.toLowerCase().includes(search)
+        (
+            sted.navn.toLowerCase().includes(search) ||
+            sted.kontor.toLowerCase().includes(search) ||
+            sted.tags.join(" ").toLowerCase().includes(search) ||
+            sted.beskrivelse.toLowerCase().includes(search)
+        ) &&
+        [...selectedTags].every(tag => sted.tags.includes(tag))
     );
 
     const sort =
@@ -273,7 +368,8 @@ function render(){
 
         const tagsHTML =
         sted.tags.map(tag=>
-            `<span class="tag">${tag}</span>`
+            `<button type="button" class="tag tag-button" data-tag="${escapeHTML(tag)}"
+                aria-pressed="${selectedTags.has(tag)}">${escapeHTML(tag)}</button>`
         ).join("");
 
         list.innerHTML += `
@@ -306,6 +402,25 @@ function render(){
     });
 
 }
+
+tagFilters.addEventListener("click", event => {
+    const button = event.target.closest("button[data-tag]");
+    if(button){
+        toggleTagFilter(button.dataset.tag);
+    }
+});
+
+list.addEventListener("click", event => {
+    const button = event.target.closest("button[data-tag]");
+    if(button){
+        toggleTagFilter(button.dataset.tag, true);
+    }
+});
+
+document.getElementById("clearTagFilters").addEventListener("click", () => {
+    selectedTags.clear();
+    render();
+});
 
 function toggleForm(){
     document

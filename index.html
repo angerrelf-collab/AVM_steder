@@ -92,6 +92,24 @@ button:hover{
     font-weight:bold;
 }
 
+.management-panel{
+    background:white;
+    padding:10px;
+    border-radius:8px;
+}
+
+.management-panel summary{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.management-options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:10px;
+}
+
 .tag-filter-options{
     display:flex;
     flex-wrap:wrap;
@@ -164,11 +182,14 @@ button:hover{
     <option value="kontor">Sortér efter kontor</option>
 </select>
 
-<button onclick="toggleForm()">➕ Nyt afleveringssted</button>
-
-<button onclick="exportJSON()">📥 Eksportér JSON</button>
-
-<input type="file" id="importFile" accept=".json">
+<details class="management-panel">
+    <summary>Flere handlinger</summary>
+    <div class="management-options">
+        <button onclick="toggleForm()">➕ Nyt afleveringssted</button>
+        <button onclick="exportJSON()">📥 Eksportér JSON</button>
+        <input type="file" id="importFile" accept=".json">
+    </div>
+</details>
 
 </div>
 

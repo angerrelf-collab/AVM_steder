@@ -125,12 +125,48 @@ button:hover{
 
 .actions{
     display:flex;
-    gap:8px;
+    justify-content:flex-end;
     margin-top:10px;
 }
 
-.actions button{
-    flex:1;
+.action-menu{
+    position:relative;
+}
+
+.action-menu summary{
+    display:grid;
+    width:40px;
+    height:40px;
+    place-items:center;
+    border-radius:8px;
+    background:#1976d2;
+    color:white;
+    cursor:pointer;
+    font-size:24px;
+    line-height:1;
+    list-style:none;
+}
+
+.action-menu summary::-webkit-details-marker{
+    display:none;
+}
+
+.action-menu-items{
+    position:absolute;
+    top:calc(100% + 4px);
+    right:0;
+    z-index:1;
+    min-width:140px;
+    padding:4px;
+    background:white;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.action-menu-items button{
+    text-align:left;
+    white-space:nowrap;
 }
 
 .formBox{
@@ -402,13 +438,17 @@ function render(){
             <p>${sted.beskrivelse}</p>
 
             <div class="actions">
-                <button onclick="editPlace(${realIndex})">
-                    ✏️ Rediger
-                </button>
-
-                <button onclick="deletePlace(${realIndex})">
-                    🗑️ Slet
-                </button>
+                <details class="action-menu">
+                    <summary aria-label="Handlinger for ${escapeHTML(sted.navn)}">⋮</summary>
+                    <div class="action-menu-items">
+                        <button onclick="editPlace(${realIndex}); this.closest('details').open = false">
+                            ✏️ Rediger
+                        </button>
+                        <button onclick="deletePlace(${realIndex})">
+                            🗑️ Slet
+                        </button>
+                    </div>
+                </details>
             </div>
 
         </div>

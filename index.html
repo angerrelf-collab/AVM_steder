@@ -297,7 +297,7 @@ placeholder="Beskrivelse af hvordan man finder stedet"></textarea>
 
 <script>
 
-let steder = JSON.parse(localStorage.getItem("steder")) || [
+let steder = [
 
 {
     navn:"Mette ZA",
@@ -457,10 +457,6 @@ function toggleTagFilter(tag, openPanel = false){
     render();
 }
 
-function saveData(){
-    localStorage.setItem("steder", JSON.stringify(steder));
-}
-
 function render(){
 
     let filtered = [...steder];
@@ -610,7 +606,6 @@ function savePlace(){
     }
 
     clearForm();
-    saveData();
     render();
 }
 
@@ -634,7 +629,6 @@ function deletePlace(index){
 
         steder.splice(index,1);
 
-        saveData();
         render();
     }
 }
@@ -682,8 +676,6 @@ document
     reader.onload = function(){
 
         steder = JSON.parse(reader.result);
-
-        saveData();
 
         render();
     };

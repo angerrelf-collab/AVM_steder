@@ -390,6 +390,20 @@ let steder = JSON.parse(localStorage.getItem("steder")) || [
     beskrivelse:"Gang O, helt ned for enden til venstre"
 },
 
+    {
+    navn:"Anæstesi OP",
+    kontor:"1 sal",
+    tags:["Afdeling","Pakker"],
+    beskrivelse:"På COP overfor rum 47a ca midt på gangen"
+},
+
+{
+    navn:"Peter Ergo & Fys terapi",
+    kontor:"Stuen",
+    tags:["Afdeling","Pakker"],
+    beskrivelse:"Gang E, i receptionen"
+},
+
 {
     navn:"Røntgen",
     kontor:"Kælder",
@@ -478,6 +492,13 @@ function render(){
     });
 
     list.innerHTML="";
+
+        console.log(
+            "Antal steder:",
+            steder.length,
+            "Viste steder:",
+            filtered.length
+        );
 
     filtered.forEach(sted=>{
 

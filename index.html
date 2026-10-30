@@ -298,219 +298,280 @@ placeholder="Beskrivelse af hvordan man finder stedet"></textarea>
 <script>
 
 let steder = [
-
-{
-    navn:"Mette ZA",
-    kontor:"Indgang 4",
-    tags:["Administration","Pakker"],
-    beskrivelse:"Gå til indgang 4 og stil pakken i receptionen i stuen"
-},
-
-{
-    navn:"KMA",
-    kontor:"Lab-fløj stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Gennem dør ved flex trafik rummet. Bord, der er PT ingen postkasser "
-},
-
-{
-    navn:"Endoskopi",
-    kontor:"Stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Ind ved J, kør rundt Ud ved K Bord til pakker"
-},
-
-{
-    navn:"TMK",
-    kontor:"R-fløj 0",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"R0.02d 7 - Logistik A"
-},
-
-{
-    navn:"D1",
-    kontor:"D-fløj 1 sal",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Stil pakker for enden af gang 40 - 51. Evt i vinduet"
-},
-
-{
-    navn:"D5",
-    kontor:"D-fløj 5 sal",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Stilles ved senge elevator vindu"
-},
-
-{
-    navn:"Patologer L0",
-    kontor:"Gang L stuen",
-    tags:["Akademiker gang","Pakker"],
-    beskrivelse:"Tror ikke der var en plads endnu"
-},
-    
-{
-    navn:"TMK",
-    kontor:"R0",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Stil pakker i rum efter reception"
-},
-    
-{
-    navn:"Palliativ senge afs (Onkologisk)",
-    kontor:"D7",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"D fløj, 7 sal"
-},
-
-{
-    navn:"Onkologisk senge afs",
-    kontor:"D6",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"D fløj, 6 sal"
-},
-
-{
-    navn:"Hæmatologisk senge afs",
-    kontor:"D5",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"D fløj, 5 sal"
-},
-
-{
-    navn:"Reumatologisk ambulatorium",
-    kontor:"D1",
-    tags:["Ambulatorium","Pakker"],
-    beskrivelse:"D fløj, 1 sal"
-},
-
-{
-    navn:"Onkologisk ambulatorium",
-    kontor:"D1",
-    tags:["Ambulatorium","Pakker"],
-    beskrivelse:"D fløj, 1 sal"
-},
-
-{
-    navn:"Stråle terapi",
-    kontor:"D0",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"D fløj, 0 sal"
-},
-
-{
-    navn:"Billeddiagnostik (MR-scanner)",
-    kontor:"D0",
-    tags:["Ambulatorium","Pakker"],
-    beskrivelse:"D fløj, 0 sal"
-},
-
-{
-    navn:"Anæstesi",
-    kontor:"L1.25.c",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Op ved COP. Stil på bord"
-},
-
-{
-    navn:"Øre næse hals ØNH",
-    kontor:"1. sal",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Gang N, over for COP. på bord."
-},
-
-{
-    navn:"Paller til S5 lager",
-    kontor:"Stuen ved gammel vare indlevering",
-    tags:["Paller"],
-    beskrivelse:"Dør før uniforms depot. Den er ikke markeret. Spø'r om at få åbnet døren, f.eks.Torben"
-},
-
-{
-    navn:"Teknisk afdeling",
-    kontor:"Stuen",
-    tags:["Pakker"],
-    beskrivelse:"i teknisk affdeling svinget. Op med elevattor. Kør forsigtig ind i elevator dør. Stil pakker på bordet."
-},
-
-{
-    navn:"Patologisk afdeling, PATO",
-    kontor:"LAB fløj 2. sal",
-    tags:["Afhentning af prøver","Levering af prøver","Kl 9:30","Kl 1330","Pakker"],
-    beskrivelse:"Lab fløj 2. sal. Der afleveres og hentes prøver. Pakker stilles på bordet."
-},
-
-{
-    navn:"IMMO & blodbank",
-    kontor:"LAB fløj 1. sal",
-    tags:["Pakker"],
-    beskrivelse:"Pakker ind ad vinduet"
-},
-
-{
-    navn:"Klinisk biologisk afdeling - KBA",
-    kontor:"LAB fløj 1. sal",
-    tags:["Pakker","Afhentning af prøver","Levering af prøver","Kl 9:30","Kl 1330"],
-    beskrivelse:"Fra IMMO, fortsæt lige ud. Til højre for enden af gangen. Lige ud gennem dør."
-},
-
-{
-    navn:"Klargøring",
-    kontor:"Stuen",
-    tags:["Paller","Pakker"],
-    beskrivelse:"Der hvor du går ud til p-plads, gennem 2 døre. Der er skilt på dør"
-},
-
-{
-    navn:"Akutten - AKUT",
-    kontor:"Stuen",
-    tags:["Pakker"],
-    beskrivelse:"Ned ad gangen, gang på højre hånd, lige frem til den gule streg. 'Depot' på venstre hånd. Det roder med pakker :-)"
-},
-    
-{
-    navn:"Ort Pæd Kir",
-    kontor:"Stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Stuen fra vandrehal, ned af Gang L, Borde indenfor dør"
-},
-
-{
-    navn:"Dag Kir",
-    kontor:"Stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"I stuen ind fra vandrehal, gang A, stil på rulle bord over for C3"
-},
-
-{
-    navn:"PET Scan",
-    kontor:"Stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Gang O, helt ned for enden til venstre"
-},
-
-    {
-    navn:"Anæstesi OP",
-    kontor:"1 sal",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"På COP overfor rum 47a ca midt på gangen"
-},
-
-{
-    navn:"Peter Ergo & Fys terapi",
-    kontor:"Stuen",
-    tags:["Afdeling","Pakker"],
-    beskrivelse:"Gang E, i receptionen"
-},
-
-{
-    navn:"Røntgen",
-    kontor:"Kælder",
-    tags:["Afdeling","Kælder","Paller"],
-    beskrivelse:"Stil pallen til højre for dør i S gang ved de 4 containere"
-}
-
+  {
+    "navn": "Mette ZA",
+    "kontor": "Indgang 4",
+    "tags": [
+      "Administration",
+      "Pakker"
+    ],
+    "beskrivelse": "Gå til indgang 4 og stil pakken i receptionen i stuen"
+  },
+  {
+    "navn": "Roskilde 2",
+    "kontor": "G1.08",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "1. sal ved E-gang (2 døre) Stil under 8 tal"
+  },
+  {
+    "navn": "KMA",
+    "kontor": "Lab-fløj stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Gennem dør ved flex trafik rummet. Bord, der er PT ingen postkasser "
+  },
+  {
+    "navn": "Endoskopi",
+    "kontor": "Stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Ind ved J, kør rundt Ud ved K Bord til pakker"
+  },
+  {
+    "navn": "TMK",
+    "kontor": "R0.02d 7",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "R-fløj stuen - Logistik A"
+  },
+  {
+    "navn": "D1",
+    "kontor": "D-fløj 1 sal",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Stil pakker for enden af gang 40 - 51. Evt i vinduet"
+  },
+  {
+    "navn": "D5",
+    "kontor": "D-fløj 5 sal",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Stilles ved senge elevator vindu"
+  },
+  {
+    "navn": "Patologer L0",
+    "kontor": "Gang L stuen",
+    "tags": [
+      "Akademiker gang",
+      "Pakker"
+    ],
+    "beskrivelse": "Tror ikke der var en plads endnu"
+  },
+  {
+    "navn": "Palliativ senge afs (Onkologisk)",
+    "kontor": "D7",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 7 sal"
+  },
+  {
+    "navn": "Onkologisk senge afs",
+    "kontor": "D6",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 6 sal"
+  },
+  {
+    "navn": "Hæmatologisk senge afs",
+    "kontor": "D5",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 5 sal"
+  },
+  {
+    "navn": "Reumatologisk ambulatorium",
+    "kontor": "D1",
+    "tags": [
+      "Ambulatorium",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 1 sal"
+  },
+  {
+    "navn": "Onkologisk ambulatorium",
+    "kontor": "D1",
+    "tags": [
+      "Ambulatorium",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 1 sal"
+  },
+  {
+    "navn": "Stråle terapi",
+    "kontor": "D0",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 0 sal"
+  },
+  {
+    "navn": "Billeddiagnostik (MR-scanner)",
+    "kontor": "D0",
+    "tags": [
+      "Ambulatorium",
+      "Pakker"
+    ],
+    "beskrivelse": "D fløj, 0 sal"
+  },
+  {
+    "navn": "Anæstesi",
+    "kontor": "L1.25.c",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Op ved COP. Stil på bord"
+  },
+  {
+    "navn": "Øre næse hals ØNH",
+    "kontor": "1. sal",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Gang N, over for COP. på bord."
+  },
+  {
+    "navn": "Paller til S5 lager",
+    "kontor": "Stuen ved gammel vare indlevering",
+    "tags": [
+      "Paller"
+    ],
+    "beskrivelse": "Dør før uniforms depot. Den er ikke markeret. Spø'r om at få åbnet døren, f.eks.Torben"
+  },
+  {
+    "navn": "Teknisk afdeling",
+    "kontor": "Stuen",
+    "tags": [
+      "Pakker"
+    ],
+    "beskrivelse": "i teknisk affdeling svinget. Op med elevattor. Kør forsigtig ind i elevator dør. Stil pakker på bordet."
+  },
+  {
+    "navn": "Patologisk afdeling, PATO",
+    "kontor": "LAB fløj 2. sal",
+    "tags": [
+      "Afhentning af prøver",
+      "Levering af prøver",
+      "Kl 9:30",
+      "Kl 1330",
+      "Pakker"
+    ],
+    "beskrivelse": "Lab fløj 2. sal. Der afleveres og hentes prøver. Pakker stilles på bordet."
+  },
+  {
+    "navn": "IMMO & blodbank",
+    "kontor": "LAB fløj 1. sal",
+    "tags": [
+      "Pakker"
+    ],
+    "beskrivelse": "Pakker ind ad vinduet"
+  },
+  {
+    "navn": "Klinisk biologisk afdeling - KBA",
+    "kontor": "LAB fløj 1. sal",
+    "tags": [
+      "Pakker",
+      "Afhentning af prøver",
+      "Levering af prøver",
+      "Kl 9:30",
+      "Kl 1330"
+    ],
+    "beskrivelse": "Fra IMMO, fortsæt lige ud. Til højre for enden af gangen. Lige ud gennem dør."
+  },
+  {
+    "navn": "Klargøring",
+    "kontor": "Stuen",
+    "tags": [
+      "Paller",
+      "Pakker"
+    ],
+    "beskrivelse": "Der hvor du går ud til p-plads, gennem 2 døre. Der er skilt på dør"
+  },
+  {
+    "navn": "Akutten - AKUT",
+    "kontor": "Stuen",
+    "tags": [
+      "Pakker"
+    ],
+    "beskrivelse": "Ned ad gangen, gang på højre hånd, lige frem til den gule streg. 'Depot' på venstre hånd. Det roder med pakker :-)"
+  },
+  {
+    "navn": "Ort Pæd Kir",
+    "kontor": "Stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Stuen fra vandrehal, ned af Gang L, Borde indenfor dør"
+  },
+  {
+    "navn": "Dag Kir",
+    "kontor": "Stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "I stuen ind fra vandrehal, gang A, stil på rulle bord over for C3"
+  },
+  {
+    "navn": "PET Scan",
+    "kontor": "Stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Gang O, helt ned for enden til venstre"
+  },
+  {
+    "navn": "Anæstesi OP",
+    "kontor": "1 sal",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "På COP overfor rum 47a ca midt på gangen"
+  },
+  {
+    "navn": "Peter Ergo & Fys terapi",
+    "kontor": "Stuen",
+    "tags": [
+      "Afdeling",
+      "Pakker"
+    ],
+    "beskrivelse": "Gang E, i receptionen"
+  },
+  {
+    "navn": "Røntgen",
+    "kontor": "Kælder",
+    "tags": [
+      "Afdeling",
+      "Kælder",
+      "Paller"
+    ],
+    "beskrivelse": "Stil pallen til højre for dør i S gang ved de 4 containere"
+  }
 ];
-
 const list = document.getElementById("list");
 const tagFilters = document.getElementById("tagFilters");
 const selectedTags = new Set();

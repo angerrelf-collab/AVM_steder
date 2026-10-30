@@ -287,7 +287,7 @@ button:hover{
 <input id="tags" placeholder="Tags (kommasepareret)">
 
 <textarea id="beskrivelse" rows="4"
-placeholder="Beskrivelse af hvordan man finder stedet"></textarea>
+placeholder="Noter til at finde stedet og hvor pakkerne skal stilles"></textarea>
 
 <button onclick="savePlace()">💾 Gem</button>
 
@@ -511,6 +511,31 @@ let steder = [
 
 ];
 
+function createUniqueId(usedIds = new Set()){
+    let id;
+
+    do {
+        id = globalThis.crypto?.randomUUID?.() ||
+            `sted-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    } while(usedIds.has(id));
+
+    return id;
+}
+
+function ensureUniqueIds(places){
+    const ids = new Set();
+
+    places.forEach(sted => {
+        if(!sted.id || ids.has(sted.id)){
+            sted.id = createUniqueId(ids);
+        }
+
+        ids.add(sted.id);
+    });
+}
+
+ensureUniqueIds(steder);
+
 const list = document.getElementById("list");
 const tagFilters = document.getElementById("tagFilters");
 const selectedTags = new Set();
@@ -691,6 +716,7 @@ function savePlace(){
     }
 
     const data = {
+        id: editIndex === "" ? createUniqueId(new Set(steder.map(sted => sted.id))) : steder[editIndex].id,
         navn,
         kontor,
         tags,
@@ -774,6 +800,7 @@ document
     reader.onload = function(){
 
         steder = JSON.parse(reader.result);
+        ensureUniqueIds(steder);
 
         render();
     };

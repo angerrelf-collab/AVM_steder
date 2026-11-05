@@ -124,6 +124,50 @@ button:hover{
     margin-top:10px;
 }
 
+.route-panel{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.route-panel h2{
+    margin-bottom:10px;
+}
+
+.route-actions{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.route-actions button,
+.route-toggle{
+    width:auto;
+}
+
+.route-list{
+    display:grid;
+    gap:10px;
+    padding-left:25px;
+}
+
+.route-stop{
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    break-inside:avoid;
+}
+
+.route-stop h3{
+    color:#1976d2;
+    margin-bottom:5px;
+}
+
+.route-stop p{
+    line-height:1.5;
+}
+
 .tag-filter-options{
     display:flex;
     flex-wrap:wrap;
@@ -248,6 +292,34 @@ button:hover{
         gap:20px;
     }
 }
+
+@media print{
+    body{
+        max-width:none;
+        padding:0;
+        background:white;
+    }
+
+    h1,
+    .controls,
+    #formBox,
+    #list,
+    .route-actions{
+        display:none !important;
+    }
+
+    .route-panel{
+        padding:0;
+        margin:0;
+    }
+
+    .route-stop{
+        border:0;
+        border-bottom:1px solid #ccc;
+        border-radius:0;
+        padding:10px 0;
+    }
+}
 </style>
 </head>
 <body>
@@ -279,6 +351,17 @@ button:hover{
 </details>
 
 </div>
+
+<section class="route-panel" id="routePanel" aria-labelledby="routeTitle">
+    <h2 id="routeTitle">Rute (0 modtagere)</h2>
+    <div class="route-actions">
+        <button type="button" id="printRoute" onclick="window.print()" disabled>🖨️ Udskriv rute</button>
+        <button type="button" id="clearRoute" onclick="clearRoute()" disabled>Ryd rute</button>
+    </div>
+    <ol class="route-list" id="routeList">
+        <li>Vælg modtagere for at opbygge en rute.</li>
+    </ol>
+</section>
 
 <div class="formBox hidden" id="formBox">
 
@@ -608,9 +691,11 @@ let steder = [
     "beskrivelse": "Stil pallen til højre for dør i S gang ved de 4 containere"
   }
 ];
+let rute = [];
 const list = document.getElementById("list");
 const tagFilters = document.getElementById("tagFilters");
 const selectedTags = new Set();
+const routeList = document.getElementById("routeList");
 
 function escapeHTML(value){
     return String(value).replace(/[&<>"']/g, character => ({
@@ -660,6 +745,7 @@ function render(){
     document.getElementById("search").value.toLowerCase();
 
     renderTagFilters();
+    renderRoute();
 
     filtered = filtered.filter(sted =>
         (
@@ -721,6 +807,11 @@ function render(){
             <p>${sted.beskrivelse}</p>
 
             <div class="actions">
+                <button type="button" class="route-toggle"
+                    aria-pressed="${rute.includes(sted)}"
+                    onclick="toggleRoute(${realIndex})">
+                    ${rute.includes(sted) ? "Fjern fra rute" : "Tilføj til rute"}
+                </button>
                 <details class="action-menu">
                     <summary aria-label="Handlinger for ${escapeHTML(sted.navn)}">⋮</summary>
                     <div class="action-menu-items">
@@ -738,6 +829,46 @@ function render(){
         `;
     });
 
+}
+
+function renderRoute(){
+    document.getElementById("routeTitle").textContent =
+        `Rute (${rute.length} modtagere)`;
+    document.getElementById("printRoute").disabled = rute.length === 0;
+    document.getElementById("clearRoute").disabled = rute.length === 0;
+
+    if(rute.length === 0){
+        routeList.innerHTML = "<li>Vælg modtagere for at opbygge en rute.</li>";
+        return;
+    }
+
+    routeList.innerHTML = rute.map(sted => `
+        <li class="route-stop">
+            <h3>${escapeHTML(sted.navn)}</h3>
+            ${sted.danskNavn ? `<p><strong>Dansk navn:</strong> ${escapeHTML(sted.danskNavn)}</p>` : ""}
+            <p><strong>Kontor:</strong> ${escapeHTML(sted.kontor)}</p>
+            <p><strong>Tags:</strong> ${sted.tags.map(escapeHTML).join(", ")}</p>
+            <p><strong>Beskrivelse:</strong> ${escapeHTML(sted.beskrivelse)}</p>
+        </li>
+    `).join("");
+}
+
+function toggleRoute(index){
+    const sted = steder[index];
+    const routeIndex = rute.indexOf(sted);
+
+    if(routeIndex === -1){
+        rute.push(sted);
+    } else {
+        rute.splice(routeIndex, 1);
+    }
+
+    render();
+}
+
+function clearRoute(){
+    rute = [];
+    render();
 }
 
 tagFilters.addEventListener("click", event => {
@@ -804,7 +935,13 @@ function savePlace(){
     if(editIndex === ""){
         steder.push(data);
     } else {
+        const oldPlace = steder[editIndex];
+        const routeIndex = rute.indexOf(oldPlace);
         steder[editIndex] = data;
+
+        if(routeIndex !== -1){
+            rute[routeIndex] = data;
+        }
     }
 
     clearForm();
@@ -829,6 +966,11 @@ function editPlace(index){
 function deletePlace(index){
 
     if(confirm("Slet dette afleveringssted?")){
+
+        const routeIndex = rute.indexOf(steder[index]);
+        if(routeIndex !== -1){
+            rute.splice(routeIndex, 1);
+        }
 
         steder.splice(index,1);
 

@@ -72,6 +72,10 @@ button:hover{
     margin-bottom:5px;
 }
 
+.dansk-navn{
+    margin-bottom:5px;
+}
+
 .kontor{
     font-weight:bold;
     margin-bottom:10px;
@@ -281,6 +285,8 @@ button:hover{
 <input type="hidden" id="editIndex">
 
 <input id="navn" placeholder="Navn">
+
+<input id="danskNavn" placeholder="Dansk navn">
 
 <input id="kontor" placeholder="Kontornummer (fx R0.02)">
 
@@ -658,6 +664,7 @@ function render(){
     filtered = filtered.filter(sted =>
         (
             sted.navn.toLowerCase().includes(search) ||
+            (sted.danskNavn || "").toLowerCase().includes(search) ||
             sted.kontor.toLowerCase().includes(search) ||
             sted.tags.join(" ").toLowerCase().includes(search) ||
             sted.beskrivelse.toLowerCase().includes(search)
@@ -700,6 +707,8 @@ function render(){
         <div class="card">
 
             <h3>${sted.navn}</h3>
+
+            ${sted.danskNavn ? `<div class="dansk-navn">${escapeHTML(sted.danskNavn)}</div>` : ""}
 
             <div class="kontor">
                 ${sted.kontor}
@@ -761,6 +770,9 @@ function savePlace(){
     const navn =
     document.getElementById("navn").value.trim();
 
+    const danskNavn =
+    document.getElementById("danskNavn").value.trim();
+
     const kontor =
     document.getElementById("kontor").value.trim();
 
@@ -783,6 +795,7 @@ function savePlace(){
 
     const data = {
         navn,
+        danskNavn,
         kontor,
         tags,
         beskrivelse
@@ -804,6 +817,7 @@ function editPlace(index){
 
     document.getElementById("editIndex").value = index;
     document.getElementById("navn").value = sted.navn;
+    document.getElementById("danskNavn").value = sted.danskNavn || "";
     document.getElementById("kontor").value = sted.kontor;
     document.getElementById("tags").value = sted.tags.join(", ");
     document.getElementById("beskrivelse").value = sted.beskrivelse;
@@ -826,6 +840,7 @@ function clearForm(){
 
     document.getElementById("editIndex").value="";
     document.getElementById("navn").value="";
+    document.getElementById("danskNavn").value="";
     document.getElementById("kontor").value="";
     document.getElementById("tags").value="";
     document.getElementById("beskrivelse").value="";

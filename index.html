@@ -296,10 +296,11 @@ placeholder="Beskrivelse af hvordan man finder stedet"></textarea>
 <div id="list"></div>
 
 <script>
-
+    
 let steder = [
   {
     "navn": "Mette ZA",
+    "danskNavn": "n/a",
     "kontor": "Indgang 4",
     "tags": [
       "Administration",
@@ -309,6 +310,7 @@ let steder = [
   },
   {
     "navn": "Roskilde 2",
+    "danskNavn": "n/a",
     "kontor": "G1.08",
     "tags": [
       "Afdeling",
@@ -318,6 +320,7 @@ let steder = [
   },
   {
     "navn": "KMA",
+    "danskNavn": "n/a",
     "kontor": "Lab-fløj stuen",
     "tags": [
       "Afdeling",
@@ -327,15 +330,17 @@ let steder = [
   },
   {
     "navn": "Endoskopi",
+    "danskNavn": "n/a",
     "kontor": "Stuen",
     "tags": [
       "Afdeling",
       "Pakker"
     ],
-    "beskrivelse": "Ind ved J, kør rundt Ud ved K Bord til pakker"
+    "beskrivelse": "Ind ved J, kør rundt Ud ved K Bord til pakker over for K0.06b"
   },
   {
     "navn": "TMK",
+    "danskNavn": "n/a",
     "kontor": "R0.02d 7",
     "tags": [
       "Afdeling",
@@ -345,6 +350,7 @@ let steder = [
   },
   {
     "navn": "D1",
+    "danskNavn": "n/a",
     "kontor": "D-fløj 1 sal",
     "tags": [
       "Afdeling",
@@ -354,6 +360,7 @@ let steder = [
   },
   {
     "navn": "D5",
+    "danskNavn": "n/a",
     "kontor": "D-fløj 5 sal",
     "tags": [
       "Afdeling",
@@ -363,6 +370,7 @@ let steder = [
   },
   {
     "navn": "Patologer L0",
+    "danskNavn": "n/a",
     "kontor": "Gang L stuen",
     "tags": [
       "Akademiker gang",
@@ -372,6 +380,7 @@ let steder = [
   },
   {
     "navn": "Palliativ senge afs (Onkologisk)",
+    "danskNavn": "n/a",
     "kontor": "D7",
     "tags": [
       "Afdeling",
@@ -381,6 +390,7 @@ let steder = [
   },
   {
     "navn": "Onkologisk senge afs",
+    "danskNavn": "n/a",
     "kontor": "D6",
     "tags": [
       "Afdeling",
@@ -390,6 +400,7 @@ let steder = [
   },
   {
     "navn": "Hæmatologisk senge afs",
+    "danskNavn": "n/a",
     "kontor": "D5",
     "tags": [
       "Afdeling",
@@ -399,6 +410,7 @@ let steder = [
   },
   {
     "navn": "Reumatologisk ambulatorium",
+    "danskNavn": "n/a",
     "kontor": "D1",
     "tags": [
       "Ambulatorium",
@@ -408,6 +420,7 @@ let steder = [
   },
   {
     "navn": "Onkologisk ambulatorium",
+    "danskNavn": "n/a",
     "kontor": "D1",
     "tags": [
       "Ambulatorium",
@@ -417,6 +430,7 @@ let steder = [
   },
   {
     "navn": "Stråle terapi",
+    "danskNavn": "n/a",
     "kontor": "D0",
     "tags": [
       "Afdeling",
@@ -426,6 +440,7 @@ let steder = [
   },
   {
     "navn": "Billeddiagnostik (MR-scanner)",
+    "danskNavn": "n/a",
     "kontor": "D0",
     "tags": [
       "Ambulatorium",
@@ -435,6 +450,7 @@ let steder = [
   },
   {
     "navn": "Anæstesi",
+    "danskNavn": "n/a",
     "kontor": "L1.25.c",
     "tags": [
       "Afdeling",
@@ -444,6 +460,7 @@ let steder = [
   },
   {
     "navn": "Øre næse hals ØNH",
+    "danskNavn": "n/a",
     "kontor": "1. sal",
     "tags": [
       "Afdeling",
@@ -453,6 +470,7 @@ let steder = [
   },
   {
     "navn": "Paller til S5 lager",
+    "danskNavn": "n/a",
     "kontor": "Stuen ved gammel vare indlevering",
     "tags": [
       "Paller"
@@ -461,6 +479,7 @@ let steder = [
   },
   {
     "navn": "Teknisk afdeling",
+    "danskNavn": " - ",
     "kontor": "Stuen",
     "tags": [
       "Pakker"
@@ -469,6 +488,7 @@ let steder = [
   },
   {
     "navn": "Patologisk afdeling, PATO",
+    "danskNavn": "n/a",
     "kontor": "LAB fløj 2. sal",
     "tags": [
       "Afhentning af prøver",
@@ -481,6 +501,7 @@ let steder = [
   },
   {
     "navn": "IMMO & blodbank",
+    "danskNavn": "n/a",
     "kontor": "LAB fløj 1. sal",
     "tags": [
       "Pakker"
@@ -489,6 +510,7 @@ let steder = [
   },
   {
     "navn": "Klinisk biologisk afdeling - KBA",
+    "danskNavn": "n/a",
     "kontor": "LAB fløj 1. sal",
     "tags": [
       "Pakker",
@@ -501,6 +523,7 @@ let steder = [
   },
   {
     "navn": "Klargøring",
+    "danskNavn": "-",
     "kontor": "Stuen",
     "tags": [
       "Paller",
@@ -510,6 +533,7 @@ let steder = [
   },
   {
     "navn": "Akutten - AKUT",
+    "danskNavn": "-",
     "kontor": "Stuen",
     "tags": [
       "Pakker"
@@ -518,6 +542,7 @@ let steder = [
   },
   {
     "navn": "Ort Pæd Kir",
+    "danskNavn": "Led og knogle kir",
     "kontor": "Stuen",
     "tags": [
       "Afdeling",
@@ -527,6 +552,7 @@ let steder = [
   },
   {
     "navn": "Dag Kir",
+    "danskNavn": "-",
     "kontor": "Stuen",
     "tags": [
       "Afdeling",
@@ -536,6 +562,7 @@ let steder = [
   },
   {
     "navn": "PET Scan",
+    "danskNavn": "-",
     "kontor": "Stuen",
     "tags": [
       "Afdeling",
@@ -545,6 +572,7 @@ let steder = [
   },
   {
     "navn": "Anæstesi OP",
+    "danskNavn": "-",
     "kontor": "1 sal",
     "tags": [
       "Afdeling",
@@ -554,6 +582,7 @@ let steder = [
   },
   {
     "navn": "Peter Ergo & Fys terapi",
+    "danskNavn": "-",
     "kontor": "Stuen",
     "tags": [
       "Afdeling",
@@ -563,6 +592,7 @@ let steder = [
   },
   {
     "navn": "Røntgen",
+    "danskNavn": "-",
     "kontor": "Kælder",
     "tags": [
       "Afdeling",

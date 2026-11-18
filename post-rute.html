@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post rute</title>
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    max-width:900px;
+    margin:0 auto;
+    padding:15px;
+    background:#f5f5f5;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+a{
+    color:#1976d2;
+}
+
+.route-entry{
+    margin:12px 0;
+    padding:15px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.route-entry summary{
+    color:#1976d2;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+dl{
+    display:grid;
+    grid-template-columns:minmax(130px, auto) 1fr;
+    gap:8px 12px;
+    margin:15px 0 0;
+}
+
+dt{
+    font-weight:bold;
+}
+
+dd{
+    margin:0;
+    overflow-wrap:anywhere;
+}
+</style>
+</head>
+<body>
+<main>
+    <h1>Post rute</h1>
+    <p>Redigér felterne direkte i HTML-koden, og kopiér ruteindlægget for at tilføje flere stop.</p>
+    <details class="route-entry">
+        <summary>Navn</summary>
+        <dl>
+            <dt>Placering</dt>
+            <dd>Tilføj placering</dd>
+            <dt>RuteBeskrivelse</dt>
+            <dd>Tilføj rutebeskrivelse</dd>
+            <dt>Dørnummer</dt>
+            <dd>Tilføj dørnummer</dd>
+            <dt>Postkasseplacering</dt>
+            <dd>Tilføj postkasseplacering</dd>
+            <dt>Noter</dt>
+            <dd>Tilføj noter</dd>
+        </dl>
+    </details>
+</main>
+</body>
+</html>
